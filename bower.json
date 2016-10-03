@@ -1,0 +1,10 @@
+{
+  "dependencies": {
+    "iron-elements": "PolymerElements/iron-elements#latest",
+    "neon-elements": "PolymerElements/neon-elements#latest",
+    "paper-elements": "PolymerElements/paper-elements#latest",
+    "polymer": "Polymer/polymer#latest"
+  },
+  "name": "meteor-starter",
+  "version": "0.0.1"
+}
