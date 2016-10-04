@@ -72,6 +72,8 @@ export default class App extends Component {
   render() {
     return (
       <div className="container">
+        <star-toggle></star-toggle>
+
         <header>
           <h1>Todo List ({this.props.incompleteCount})</h1>
 
