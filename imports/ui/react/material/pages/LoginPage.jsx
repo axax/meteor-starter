@@ -1,5 +1,4 @@
 import React from 'react';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Paper from 'material-ui/Paper';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
@@ -9,7 +8,6 @@ import PersonAdd from 'material-ui/svg-icons/social/person-add';
 import Help from 'material-ui/svg-icons/action/help';
 import TextField from 'material-ui/TextField';
 import {Link} from 'react-router';
-import ThemeDefault from '../theme-default.jsx';
 
 const LoginPage = () => {
 
@@ -59,7 +57,8 @@ const LoginPage = () => {
       padding: 7,
       borderRadius: 2,
       margin: 2,
-      fontSize: 13
+      fontSize: 13,
+      textDecoration:"none"
     },
     btnFacebook: {
       background: '#4f81e9'
@@ -69,11 +68,10 @@ const LoginPage = () => {
     },
     btnSpan: {
       marginLeft: 5
-    },
+    }
   };
 
   return (
-    <MuiThemeProvider muiTheme={ThemeDefault}>
       <div>
         <div style={styles.loginContainer}>
 
@@ -84,12 +82,14 @@ const LoginPage = () => {
                 hintText="E-mail"
                 floatingLabelText="E-mail"
                 fullWidth={true}
+                style={styles.textField}
               />
               <TextField
                 hintText="Password"
                 floatingLabelText="Password"
                 fullWidth={true}
                 type="password"
+                style={styles.textField}
               />
 
               <div>
@@ -137,7 +137,6 @@ const LoginPage = () => {
           </div>
         </div>
       </div>
-    </MuiThemeProvider>
   );
 };
 

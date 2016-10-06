@@ -35,9 +35,7 @@ class App extends React.Component {
    
     return (
       <MuiThemeProvider muiTheme={ThemeDefault}>
-        <div>
           { this.getChildRoute() }
-        </div>
       </MuiThemeProvider>
     );
   }
