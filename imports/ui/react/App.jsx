@@ -72,6 +72,7 @@ export default class App extends Component {
   render() {
     return (
       <div className="container">
+        /* Polymer component in react render */
         <star-toggle></star-toggle>
 
         <header>
