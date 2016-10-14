@@ -1,6 +1,8 @@
 import React from 'react';
 import { Accounts, STATES } from 'meteor/std:accounts-ui';
 import "tracker-component";
+import RaisedButton from 'material-ui/RaisedButton';
+import TextField from 'material-ui/TextField';
 
 
 
@@ -60,16 +62,13 @@ class Button extends Accounts.ui.Button {
     return type == 'link' ? (
       <a style={{cursor: 'pointer'}} className={ className } onClick={ onClick }>{ label }</a>
     ) : (
-      <button className={ [
-          'ui',
-          type === 'submit' ? 'btn waves-effect waves-light' : 'btn-flat',
-          disabled ? 'disabled' : '',
-          className
-        ].join(' ') } type={ type } disabled={ disabled }
-        onClick={ onClick }>
-        { label }
-        { type == 'submit' ? <i className="material-icons right">send</i> : null }
-      </button>
+
+      <RaisedButton label={ label} 
+                    className={ className } 
+                    type={ type } 
+                    disabled={ disabled } 
+                    onClick={ onClick } 
+                    primary={ type == 'submit' ? true : false } />
     );
   }
 }
@@ -89,11 +88,11 @@ class Field extends Accounts.ui.Field {
 
   triggerUpdate () {
     const { onChange } = this.props
-    if (this.input) {
-      onChange({ target: { value: this.input.value } })
+    if (this.input && this.input.input) {
+      onChange({ target: { value: this.input.input.value } })
     }
   }
-  
+
   render() {
     const {
       id,
@@ -107,18 +106,14 @@ class Field extends Accounts.ui.Field {
     } = this.props;
     const { mount = true } = this.state;
     return mount ? (
-      <div className={["input-field col s12 m7", required ? "required" : ""].join(' ')}>
-        <input id={ id }
+          <TextField id={ id }
+          fullWidth={true}
+          hintText= { label }
           name={ id }
           type={ type }
-          ref={ (ref) => this.input = ref }
-          autoCapitalize={ type == 'email' ? 'none' : false }
-          autoCorrect="off"
           onChange={ onChange }
           className="validate"
-          placeholder={ hint } defaultValue={ defaultValue } />
-        <label htmlFor={ id } className="active">{ label }</label>
-      </div>
+          defaultValue={ defaultValue } />
     ) : null;
   }
 }

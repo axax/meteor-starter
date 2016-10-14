@@ -3,13 +3,21 @@ import { createContainer } from 'meteor/react-meteor-data';
 import ReactDOM from 'react-dom';
 import { Meteor } from 'meteor/meteor';
 
-import { Tasks } from '../../api/tasks.js';
-import Task from './Task.jsx';
-import AccountsUIWrapper from './AccountsUIWrapper.jsx';
+import { List } from 'material-ui/List';
+import Subheader from 'material-ui/Subheader';
 
 
-// App component - represents the whole app
-export default class App extends Component {
+import { Tasks } from '../../../../api/tasks.js';
+import Task from '../components/todo/Task.jsx';
+import MobileTearSheet from '../components/MobileTearSheet.jsx';
+import Toggle from 'material-ui/Toggle';
+import TextField from 'material-ui/TextField';
+import Divider from 'material-ui/Divider';
+
+
+
+
+export default class Todos extends Component {
   constructor(props) {
     super(props);
  
@@ -71,40 +79,42 @@ export default class App extends Component {
  
   render() {
     return (
-      <div className="container">
+      <div>
         /* Polymer component in react render */
         <star-toggle></star-toggle>
+
 
         <header>
           <h1>Todo List ({this.props.incompleteCount})</h1>
 
 
-          <label className="hide-completed">
-            <input
-              type="checkbox"
-              readOnly
-              checked={this.state.hideCompleted}
-              onClick={this.toggleHideCompleted.bind(this)}
-            />
-            Hide Completed Tasks
-          </label>
- 
-          <AccountsUIWrapper />
+          <Toggle label="Hide Completed Tasks" defaultToggled={this.state.hideCompleted} onClick={this.toggleHideCompleted.bind(this)} />
+
+  
 
           { this.props.currentUser ?
+
+
             <form className="new-task" onSubmit={this.handleSubmit.bind(this)} >
-              <input
-                type="text"
+              <TextField
+                hintText="Type to add new tasks"
                 ref="textInput"
-                placeholder="Type to add new tasks"
+                fullWidth={true}
               />
+
             </form> : ''
           }
         </header>
- 
-        <ul>
-          {this.renderTasks()}
-        </ul>
+
+        <MobileTearSheet>
+
+
+          <List>
+            <Subheader></Subheader>
+            {this.renderTasks()}
+          </List>
+        </MobileTearSheet>
+
       </div>
     );
   }
@@ -112,7 +122,7 @@ export default class App extends Component {
 
 
 
-App.propTypes = {
+Todos.propTypes = {
   tasks: PropTypes.array.isRequired,
   incompleteCount: PropTypes.number.isRequired,
   currentUser: PropTypes.object
@@ -128,4 +138,4 @@ export default createContainer(() => {
     currentUser: Meteor.user()
 
   };
-}, App);
+}, Todos);

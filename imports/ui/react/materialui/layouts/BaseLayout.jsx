@@ -3,7 +3,6 @@ import { createContainer } from 'meteor/react-meteor-data';
 import Header from '../components/Header';
 import LeftDrawer from '../components/LeftDrawer';
 import withWidth, {LARGE, SMALL} from 'material-ui/utils/withWidth';
-import LoginPage from '../pages/LoginPage.jsx';
 import ThemeDefault from '../theme-default';
 import Data from '../data.js';
 
@@ -35,14 +34,14 @@ class BaseLayout extends React.Component {
 
     const styles = {
       header: {
-        paddingLeft: navDrawerOpen ? paddingLeftDrawerOpen : 0
+        paddingLeft: navDrawerOpen ? paddingLeftDrawerOpen : 0,
+        left: 0
       },
       container: {
         margin: '80px 20px 20px 15px',
         paddingLeft: navDrawerOpen && this.props.width !== SMALL ? paddingLeftDrawerOpen : 0
       }
     };
-
 
 
     return (
@@ -52,7 +51,7 @@ class BaseLayout extends React.Component {
 
             <LeftDrawer navDrawerOpen={navDrawerOpen}
                         menus={Data.menus}
-                        username={this.props.currentUser?this.props.currentUser.username:"Unknown User"}/>
+                        user={this.props.currentUser}/>
 
             <div style={styles.container}>
               { this.props.children }
@@ -64,14 +63,13 @@ class BaseLayout extends React.Component {
 
 BaseLayout.propTypes = {
   children: PropTypes.element,
-  width: PropTypes.number,
   currentUser: PropTypes.object,
 };
- 
+
+
 export default createContainer(() => {
     return {
-        currentUser: Meteor.user(),
+        currentUser: Meteor.user()
     };
-}, BaseLayout);
+}, withWidth()(BaseLayout));
 
-export default withWidth()(BaseLayout);

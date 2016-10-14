@@ -15,6 +15,11 @@ injectTapEventPlugin();
 
 class Header extends React.Component {
 
+
+  signout(){
+    Meteor.logout();
+  }
+
   render() {
     const {styles, handleChangeRequestNavDrawer} = this.props;
 
@@ -65,7 +70,7 @@ class Header extends React.Component {
                             targetOrigin={{horizontal: 'right', vertical: 'top'}}
                             anchorOrigin={{horizontal: 'right', vertical: 'top'}}
                   >
-                    <MenuItem primaryText="Sign out"/>
+                    <MenuItem onClick={ this.signout } primaryText="Sign out"/>
                   </IconMenu>
                 </div>
               }

@@ -3,7 +3,14 @@ import { Meteor } from 'meteor/meteor';
 
 import classnames from 'classnames';
 
-import { Tasks } from '../../api/tasks.js';
+
+import { ListItem } from 'material-ui/List';
+import Subheader from 'material-ui/Subheader';
+import Checkbox from 'material-ui/Checkbox';
+import Toggle from 'material-ui/Toggle';
+import Delete from 'material-ui/svg-icons/action/delete';
+
+import { Tasks } from '../../../../../api/tasks.js';
 
 // Task component - represents a single todo item
 export default class Task extends Component {
@@ -35,8 +42,38 @@ export default class Task extends Component {
       private: this.props.task.private,
     });
 
+    const styles = {
+      privateToggle:{
+        float:"right",
+        width:"auto",
+        marginRight:"1rem"
+      },
+      deleteButton:{
+        float:"right"
+      }
+    };
 
     return (
+      <ListItem primaryText={this.props.task.text} 
+      secondaryText={ this.props.task.username }
+      leftCheckbox={<Checkbox onClick={this.toggleChecked.bind(this)} checked={this.props.task.checked}/>} >
+        <Delete style={ styles.deleteButton } onClick={this.deleteThisTask.bind(this)} />        
+        <Toggle style={ styles.privateToggle } defaultToggled={this.props.task.private} onClick={this.togglePrivate.bind(this)} />
+      </ListItem>
+    );
+	}
+}
+ 
+Task.propTypes = {
+  // This component gets the task to display through a React prop.
+  // We can use propTypes to indicate it is required
+  task: PropTypes.object.isRequired,
+  showPrivateButton: React.PropTypes.bool.isRequired,
+
+};
+
+
+/* 
       <li className={taskClassName}>
         <button className="delete" onClick={this.deleteThisTask.bind(this)}>
           &times;
@@ -60,14 +97,4 @@ export default class Task extends Component {
         </span>
 
       </li>
-    );
-	}
-}
- 
-Task.propTypes = {
-  // This component gets the task to display through a React prop.
-  // We can use propTypes to indicate it is required
-  task: PropTypes.object.isRequired,
-  showPrivateButton: React.PropTypes.bool.isRequired,
-
-};
+      */

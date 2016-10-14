@@ -8,26 +8,35 @@ class App extends React.Component {
 
   constructor(props) {
     super(props);
-
-    
-
   }
 
+  checkAuth(props) {
+    if( props.location.pathname !="/login"){
 
-  componentWillMount(){
-    var currentLocation = this.props.location.pathname;
-
-    if( this.props.location.pathname !="/login"){
-
-      const user = this.props.currentUser;
-
-      if( !user ){
-        // redirect to login page
-        browserHistory.push('/login')
+      if ( props.currentUser===null) {
+        browserHistory.replace('/login');
+      }
+    }else{
+      if ( props.currentUser!==null) {
+        browserHistory.replace('/dashboard');
       }
     }
   }
 
+  componentWillMount() {
+    if( this.props.location.pathname==="/"){
+      browserHistory.replace('/dashboard');
+    }
+  }
+
+  componentDidMount() {
+    this.checkAuth(this.props);
+
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.checkAuth(nextProps);
+  }
 
   render() {
     return (
@@ -38,14 +47,16 @@ class App extends React.Component {
   }
 }
 
+
 App.propTypes = {
-  children: PropTypes.element,
   currentUser: PropTypes.object,
   location: PropTypes.object
 };
- 
+
 export default createContainer(() => {
-    return {
-        currentUser: Meteor.user(),
-    };
+  
+  return {
+    currentUser: Meteor.user()
+  }
 }, App);
+

@@ -6,9 +6,10 @@ import App from '../../ui/react/materialui/App.jsx';
 
 // layouts
 import BaseLayout from '../../ui/react/materialui/layouts/BaseLayout.jsx';
-import PlainLayout from '../../ui/react/materialui/layouts/PlainLayout.jsx';
+import LoginLayout from '../../ui/react/materialui/layouts/LoginLayout.jsx';
 
-//import LoginPage from '../../ui/react/materialui/pages/LoginPage.jsx';
+import Dashboard from '../../ui/react/materialui/pages/Dashboard.jsx';
+import Todos from '../../ui/react/materialui/pages/Todos.jsx';
 
 import { Accounts } from '../../ui/react/materialui/components/Accounts';
 
@@ -16,7 +17,13 @@ import { Accounts } from '../../ui/react/materialui/components/Accounts';
 export const renderRoutes = () => (
   <Router history={browserHistory}>
     <Route path="/" component={App}>
-    	<Route component={BaseLayout}>
+
+      <Route component={BaseLayout}>
+        <Route path="dashboard" component={Dashboard}/>        
+        <Route path="todos" component={Todos}/>
+
+      </Route>
+    	<Route component={LoginLayout}>
       	<Route path="login" component={Accounts.ui.LoginForm}/>
       </Route>
     </Route>

@@ -6,6 +6,10 @@ import MenuItem from 'material-ui/MenuItem';
 import {Link} from 'react-router';
 import Avatar from 'material-ui/Avatar';
 
+import md5 from 'md5'
+
+
+
 const LeftDrawer = (props) => {
   let { navDrawerOpen } = props;
 
@@ -46,6 +50,12 @@ const LeftDrawer = (props) => {
     }
   };
 
+  let gravatar = '//www.gravatar.com/avatar/';
+  if( props.user ){
+    gravatar+=md5(props.user.username)+"?size=128&rating=g&d=retro";
+
+  }
+
   return (
     <Drawer
       docked={true}
@@ -54,10 +64,10 @@ const LeftDrawer = (props) => {
           Material Admin
         </div>
         <div style={styles.avatar.div}>
-          <Avatar src="http://www.material-ui.com/images/uxceo-128.jpg"
+          <Avatar src={ gravatar }
                   size={50}
                   style={styles.avatar.icon}/>
-          <span style={styles.avatar.span}>{props.username}</span>
+          <span style={styles.avatar.span}>{props.user?props.user.username:"..."}</span>
         </div>
         <div>
           {props.menus.map((menu, index) =>
@@ -77,7 +87,7 @@ const LeftDrawer = (props) => {
 LeftDrawer.propTypes = {
   navDrawerOpen: PropTypes.bool,
   menus: PropTypes.array,
-  username: PropTypes.string,
+  user: PropTypes.object,
 };
 
 export default LeftDrawer;
