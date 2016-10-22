@@ -3,7 +3,7 @@ import { createContainer } from 'meteor/react-meteor-data';
 import ReactDOM from 'react-dom';
 import { Meteor } from 'meteor/meteor';
 
-import { List } from 'material-ui/List';
+import { List, ListItem } from 'material-ui/List';
 import Subheader from 'material-ui/Subheader';
 
 
@@ -23,13 +23,28 @@ export default class Todos extends Component {
  
     this.state = {
       hideCompleted: false,
+      taskName: ''
     };
   }
 
   toggleHideCompleted() {
     this.setState({
-      hideCompleted: !this.state.hideCompleted,
+      hideCompleted: !this.state.hideCompleted
     });
+  }
+
+
+  handleTaskInputChange(event) {
+    this.setState({
+        taskName: event.target.value
+    })
+  }
+
+
+  cleanInput() {
+      this.setState({
+          taskName: ''
+      });
   }
 
 
@@ -37,7 +52,7 @@ export default class Todos extends Component {
     event.preventDefault();
  
     // Find the text field via the React ref
-    const text = ReactDOM.findDOMNode(this.refs.textInput).value.trim();
+    const text = this.state.taskName.trim(); //ReactDOM.findDOMNode(this.refs.textInput.input).value.trim();
  
     /*Tasks.insert({
       text,
@@ -49,9 +64,8 @@ export default class Todos extends Component {
     // replacement for Tasks.insert
     Meteor.call('tasks.insert', text);
 
- 
-    // Clear form
-    ReactDOM.findDOMNode(this.refs.textInput).value = '';
+    this.cleanInput();
+
   }
 
   renderTasks() {
@@ -76,41 +90,37 @@ export default class Todos extends Component {
 
 
   }
- 
+
   render() {
     return (
       <div>
-        /* Polymer component in react render */
-        <star-toggle></star-toggle>
-
-
+        
         <header>
-          <h1>Todo List ({this.props.incompleteCount})</h1>
-
-
-          <Toggle label="Hide Completed Tasks" defaultToggled={this.state.hideCompleted} onClick={this.toggleHideCompleted.bind(this)} />
-
-  
-
-          { this.props.currentUser ?
-
-
-            <form className="new-task" onSubmit={this.handleSubmit.bind(this)} >
-              <TextField
-                hintText="Type to add new tasks"
-                ref="textInput"
-                fullWidth={true}
-              />
-
-            </form> : ''
-          }
+              <h1>Todo List</h1>
         </header>
 
         <MobileTearSheet>
 
-
+          { this.props.currentUser ?
+            <form className="new-task" style={ {padding:10} } onSubmit={this.handleSubmit.bind(this)} >
+              <TextField
+                value={this.state.taskName}
+                onChange={this.handleTaskInputChange.bind(this)}
+                hintText="Type to add new tasks"
+                ref="textInput"
+                fullWidth={true}
+              />
+            </form> : ''
+          }
           <List>
-            <Subheader></Subheader>
+            <Subheader>{this.props.incompleteCount} incomplete task(s)</Subheader>
+            <ListItem primaryText="Hide Completed Tasks" rightToggle={<Toggle defaultToggled={this.state.hideCompleted} onClick={this.toggleHideCompleted.bind(this)} />} />
+
+          </List>
+
+          <Divider />
+          <List>
+            <Subheader>My Tasks</Subheader>
             {this.renderTasks()}
           </List>
         </MobileTearSheet>

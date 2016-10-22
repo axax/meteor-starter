@@ -15,8 +15,8 @@ const data = {
   menus: [
     { text: 'DashBoard', icon: <Assessment/>, link: '/dashboard' },
     { text: 'Todos', icon: <Done/>, link: '/todos' },
-    { text: 'Table Page', icon: <GridOn/>, link: '/table' },
-    { text: 'Login Page', icon: <PermIdentity/>, link: '/login' }
+   /* { text: 'Table Page', icon: <GridOn/>, link: '/table' },
+    { text: 'Login Page', icon: <PermIdentity/>, link: '/login' }*/
   ],
   tablePage: {
     items: [

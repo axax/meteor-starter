@@ -1,12 +1,15 @@
 import React,  { PropTypes } from 'react';
 import Drawer from 'material-ui/Drawer';
 import {spacing, typography} from 'material-ui/styles';
-import {white, blue600} from 'material-ui/styles/colors';
+import {white} from 'material-ui/styles/colors';
 import MenuItem from 'material-ui/MenuItem';
 import {Link} from 'react-router';
 import Avatar from 'material-ui/Avatar';
 
 import md5 from 'md5'
+
+import ThemeDefault from '../theme-default';
+
 
 
 
@@ -20,9 +23,9 @@ const LeftDrawer = (props) => {
       color: typography.textFullWhite,
       lineHeight: `${spacing.desktopKeylineIncrement}px`,
       fontWeight: typography.fontWeightLight,
-      backgroundColor: blue600,
+      backgroundColor: ThemeDefault.appBar.color,
       paddingLeft: 40,
-      height: 56,
+      height: ThemeDefault.appBar.height,
     },
     menuItem: {
       color: white,

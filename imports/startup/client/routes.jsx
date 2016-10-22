@@ -10,6 +10,7 @@ import LoginLayout from '../../ui/react/materialui/layouts/LoginLayout.jsx';
 
 import Dashboard from '../../ui/react/materialui/pages/Dashboard.jsx';
 import Todos from '../../ui/react/materialui/pages/Todos.jsx';
+import Profile from '../../ui/react/materialui/pages/Profile.jsx';
 
 import { Accounts } from '../../ui/react/materialui/components/Accounts';
 
@@ -21,6 +22,7 @@ export const renderRoutes = () => (
       <Route component={BaseLayout}>
         <Route path="dashboard" component={Dashboard}/>        
         <Route path="todos" component={Todos}/>
+        <Route path="profile" component={Profile}/>
 
       </Route>
     	<Route component={LoginLayout}>

@@ -17,9 +17,10 @@ class BaseLayout extends React.Component {
 
 
   componentWillReceiveProps(nextProps) {
-    if (this.props.width !== nextProps.width) {
+   // if (this.props.width !== nextProps.width) {
       this.setState({navDrawerOpen: nextProps.width === LARGE});
-    }
+   // }
+
   }
 
   handleChangeRequestNavDrawer() {

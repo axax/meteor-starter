@@ -9,7 +9,7 @@ let MobileTearSheet = React.createClass({
 
   getDefaultProps() {
     return {
-      height: 500
+      minHeight: 500
     };
   },
 
@@ -20,7 +20,8 @@ let MobileTearSheet = React.createClass({
         float: 'left',
         marginBottom: 24,
         marginRight: 24,
-        width: 360
+        width: "100%",
+        maxWidth:360
 
       },
 
@@ -35,7 +36,8 @@ let MobileTearSheet = React.createClass({
         display: 'block',
         position: 'relative',
         marginTop: -10,
-        width: 360
+        width: "100%",
+        maxWidth:360
       }
     };
 

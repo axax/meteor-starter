@@ -12,8 +12,10 @@ Meteor.startup(() => {
 
 
 /*
-import App from '/imports/ui/react/App.jsx';
+
+import App from '/imports/ui/react/materialui/App.jsx';
  
 Meteor.startup(() => {
+	console.log(document.getElementById('render-target'));
   render(<App />, document.getElementById('render-target'));
 });*/

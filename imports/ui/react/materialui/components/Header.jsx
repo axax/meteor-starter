@@ -8,6 +8,11 @@ import Menu from 'material-ui/svg-icons/navigation/menu';
 import ViewModule from 'material-ui/svg-icons/action/view-module';
 import {white} from 'material-ui/styles/colors';
 import SearchBox from './SearchBox';
+import {Link} from 'react-router';
+
+
+import ThemeDefault from '../theme-default';
+
 
 // Needed for onTouchTap
 import injectTapEventPlugin from 'react-tap-event-plugin';
@@ -28,7 +33,7 @@ class Header extends React.Component {
         position: 'fixed',
         top: 0,
         overflow: 'hidden',
-        maxHeight: 57
+        maxHeight: ThemeDefault.appBar.height
       },
       menuButton: {
         marginLeft: 10
@@ -52,7 +57,7 @@ class Header extends React.Component {
               }
               iconElementRight={
                 <div style={style.iconsRightContainer}>
-                  <IconMenu color={white}
+                  {/*<IconMenu color={white}
                             iconButtonElement={
                               <IconButton><ViewModule color={white}/></IconButton>
                             }
@@ -62,7 +67,7 @@ class Header extends React.Component {
                     <MenuItem key={1} primaryText="Application 1"/>
                     <MenuItem key={2} primaryText="Application 2"/>
                     <MenuItem key={3} primaryText="Application 3"/>
-                  </IconMenu>
+                  </IconMenu>*/}
                   <IconMenu color={white}
                             iconButtonElement={
                               <IconButton><MoreVertIcon color={white}/></IconButton>
@@ -70,6 +75,7 @@ class Header extends React.Component {
                             targetOrigin={{horizontal: 'right', vertical: 'top'}}
                             anchorOrigin={{horizontal: 'right', vertical: 'top'}}
                   >
+                    <MenuItem containerElement={<Link to="/profile"/>} primaryText="Profile"/>
                     <MenuItem onClick={ this.signout } primaryText="Sign out"/>
                   </IconMenu>
                 </div>
