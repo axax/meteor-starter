@@ -17,10 +17,10 @@ import Divider from 'material-ui/Divider';
 
 
 
-export default class Todos extends Component {
+export class Todos extends Component {
   constructor(props) {
     super(props);
- 
+
     this.state = {
       hideCompleted: false,
       taskName: ''
@@ -50,10 +50,10 @@ export default class Todos extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
- 
+
     // Find the text field via the React ref
     const text = this.state.taskName.trim(); //ReactDOM.findDOMNode(this.refs.textInput.input).value.trim();
- 
+
     /*Tasks.insert({
       text,
       createdAt: new Date(), // current time
@@ -78,7 +78,7 @@ export default class Todos extends Component {
     return filteredTasks.map((task) => {
       const currentUserId = this.props.currentUser && this.props.currentUser._id;
       const showPrivateButton = task.owner === currentUserId;
- 
+
       return (
         <Task
           key={task._id}
@@ -94,7 +94,7 @@ export default class Todos extends Component {
   render() {
     return (
       <div>
-        
+
         <header>
               <h1>Todo List</h1>
         </header>
@@ -128,7 +128,7 @@ export default class Todos extends Component {
       </div>
     );
   }
-} 
+}
 
 
 
@@ -137,7 +137,7 @@ Todos.propTypes = {
   incompleteCount: PropTypes.number.isRequired,
   currentUser: PropTypes.object
 };
- 
+
 export default createContainer(() => {
 
   Meteor.subscribe('tasks');
@@ -146,6 +146,5 @@ export default createContainer(() => {
     tasks: Tasks.find({}, { sort: { createdAt: -1 } }).fetch(),
     incompleteCount: Tasks.find({ checked: { $ne: true } }).count(),
     currentUser: Meteor.user()
-
   };
 }, Todos);

@@ -9,7 +9,7 @@ import Snackbar from 'material-ui/Snackbar';
 
 
 
-export default class Profile extends Component {
+export class Profile extends Component {
 
   constructor(props) {
     super(props);
@@ -22,8 +22,7 @@ export default class Profile extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-	 
-	 	console.log(this.refs.firstname.input);
+
 	  Meteor.users.update(Meteor.userId(), {$set: {profile: {
 	  																									street:this.refs.street.input.value,
   																										firstname:this.refs.firstname.input.value,
@@ -61,19 +60,19 @@ export default class Profile extends Component {
 
 		    { this.props.currentUser ?
 		    	<form onSubmit={this.handleSubmit.bind(this)} >
-		    		<TextField ref="username" fullWidth={true} value={this.props.currentUser.username} disabled={true} hintText="Username"/> 
+		    		<TextField ref="username" fullWidth={true} value={this.props.currentUser.username} disabled={true} hintText="Username"/>
 
-		    		<TextField ref="firstname" defaultValue={this.props.currentUser.profile.firstname} fullWidth={true} 
+		    		<TextField ref="firstname" defaultValue={this.props.currentUser.profile.firstname} fullWidth={true}
       				floatingLabelText="Firstname"
-      				floatingLabelFixed={true} hintText="Please enter your firstname"/> 
+      				floatingLabelFixed={true} hintText="Please enter your firstname"/>
 
-    				<TextField ref="lastname" defaultValue={this.props.currentUser.profile.lastname} fullWidth={true} 
+    				<TextField ref="lastname" defaultValue={this.props.currentUser.profile.lastname} fullWidth={true}
     				floatingLabelText="Lastname"
-    				floatingLabelFixed={true} hintText="Please enter your lastname"/> 
+    				floatingLabelFixed={true} hintText="Please enter your lastname"/>
 
-    				<TextField ref="street" defaultValue={this.props.currentUser.profile.street} fullWidth={true} 
+    				<TextField ref="street" defaultValue={this.props.currentUser.profile.street} fullWidth={true}
     				floatingLabelText="Street"
-    				floatingLabelFixed={true} hintText="Please enter your street name"/> 
+    				floatingLabelFixed={true} hintText="Please enter your street name"/>
 
     				<div style={ {display:"flex",justifyContent: "flex-end"} }>
 	    				<RaisedButton label='Save' secondary={true} type='submit'/>
@@ -86,7 +85,7 @@ export default class Profile extends Component {
 		          onRequestClose={this.handleRequestCloseSnackbar.bind(this)}
 		        />
 
- 
+
 	    		</form>
 
 		    : "" }

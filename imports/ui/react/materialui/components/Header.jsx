@@ -9,10 +9,12 @@ import ViewModule from 'material-ui/svg-icons/action/view-module';
 import {white} from 'material-ui/styles/colors';
 import SearchBox from './SearchBox';
 import {Link} from 'react-router';
-
+import Add from 'material-ui/svg-icons/content/add';
+import Dialog from 'material-ui/Dialog';
+import FlatButton from 'material-ui/FlatButton';
+import AddWidget from './widgets/Add';
 
 import ThemeDefault from '../theme-default';
-
 
 // Needed for onTouchTap
 import injectTapEventPlugin from 'react-tap-event-plugin';
@@ -20,10 +22,27 @@ injectTapEventPlugin();
 
 class Header extends React.Component {
 
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      addDialogOpen: false
+    };
+  }
+
 
   signout(){
     Meteor.logout();
   }
+
+
+  addDialogOpen(){
+    this.setState({addDialogOpen: true});
+  };
+
+  addDialogClose(){
+    this.setState({addDialogOpen: false});
+  };
 
   render() {
     const {styles, handleChangeRequestNavDrawer} = this.props;
@@ -42,6 +61,20 @@ class Header extends React.Component {
         marginLeft: 20
       }
     };
+
+    const addDialogActions = [
+      <FlatButton
+        label="Cancel"
+        primary={true}
+        onTouchTap={this.addDialogClose.bind(this)}
+      />,
+      <FlatButton
+        label="Submit"
+        primary={true}
+        disabled={true}
+        onTouchTap={this.addDialogClose.bind(this)}
+      />,
+    ];
 
     return (
         <div>
@@ -68,6 +101,9 @@ class Header extends React.Component {
                     <MenuItem key={2} primaryText="Application 2"/>
                     <MenuItem key={3} primaryText="Application 3"/>
                   </IconMenu>*/}
+                  <IconButton onTouchTap={this.addDialogOpen.bind(this)}>
+                    <Add color={white} />
+                  </IconButton>
                   <IconMenu color={white}
                             iconButtonElement={
                               <IconButton><MoreVertIcon color={white}/></IconButton>
@@ -81,6 +117,15 @@ class Header extends React.Component {
                 </div>
               }
             />
+            <Dialog
+            title="Add a widget to your dashboard"
+            actions={addDialogActions}
+            modal={false}
+            open={this.state.addDialogOpen}
+            onRequestClose={this.addDialogClose}
+            >
+              <AddWidget ></AddWidget>
+            </Dialog>
           </div>
       );
   }
